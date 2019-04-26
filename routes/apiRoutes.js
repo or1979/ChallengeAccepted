@@ -1,7 +1,7 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  app.get("/api/fitness", function(req, res) {
+  app.get("/fitness", function(req, res) {
     console.log("Orran's Link to fitness");
     res.render("testFitness", {});
     console.log("testing123");
