@@ -1,3 +1,14 @@
+//homepage button on click change color to completed (grey out)
+$("button").click(function(){
+  $("button").removeClass("active");
+  $(this).addClass("completed");
+});
+
+//as click progress add count to avatar bar
+
+
+
+
 // Get references to page elements
 var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");

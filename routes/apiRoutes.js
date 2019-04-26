@@ -1,6 +1,12 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  app.get("/fitness", function(req, res) {
+    console.log("Orran's Link to fitness");
+    res.render("testFitness", {});
+    console.log("testing123");
+  });
+  
   // Get all examples
   app.get("/api/examples", function(req, res) {
     db.Example.findAll({}).then(function(dbExamples) {
