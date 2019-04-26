@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Challenge Completed</h5>
+                    <canvas id="RBPMChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function plotRBPM(day_id, rbpm) {
+
+        // Generate upper and lower healthy RBPM limit.
+        let upperLimit = [];
+        let lowerLimit = [];
+        let x_data = [];
+        let y_data = [];
+        let j = 0;
+
+        // Be sure to mark any skipped days.
+        for (let i = 1; i <= 30; i++) {
+            upperLimit.push(100);
+            lowerLimit.push(60);
+            x_data.push(i);
+
+            if (day_id.indexOf(i) > -1) {
+                y_data.push(rbpm[j++]);
+            }
+            else {
+                // Put a null to indicate a gap in the data.
+                y_data.push(null);
+            }
+        }
+        
+
+        // Plot the chart.
+        var ctx = document.getElementById('RBPMChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    label: "Upper Normal Limit",
+                    type: "line",
+                    borderColor: "#c45850",
+                    data: upperLimit,
+                    fill: false
+                }, {
+                    label: "Lower Normal Limit",
+                    type: "line",
+                    borderColor: "#3cba9f",
+                    data: lowerLimit,
+                    fill: false
+                }, {
+                    label: "Your Data",
+                    type: "bar",
+                    backgroundColor: "#3e95cd",
+                    data: y_data,
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Resting Beats Per Minute'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+
+    // AJAX post the data to the friends API.
+    $.get("/api/metrics", function (data) {
+
+        console.log(data);
+        plotRBPM(data.day_id, data.rbpm);
+
+    });
+
+</script>
