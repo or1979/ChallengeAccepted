@@ -1,10 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-6">
             <div class="card mt-4">
                 <div class="card-body">
-                    <h5 class="card-title">Challenge Completed</h5>
+                    <h5 class="card-title">Resting Beats Per Minute</h5>
                     <canvas id="RBPMChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Body Mass Index</h5>
+                    <canvas id="BMIChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
@@ -84,11 +93,82 @@
     }
 
 
+    function plotBMI(day_id, bmi) {
+
+        // Generate upper and lower healthy BMI limit.
+        let healthyUpperLimit = [];
+        let healthyLowerLimit = [];
+        let x_data = [];
+        let y_data = [];
+        let j = 0;
+
+        // Be sure to mark any skipped days.
+        for (let i = 1; i <= 30; i++) {
+            healthyUpperLimit.push(25);
+            healthyLowerLimit.push(18.5);  
+            x_data.push(i);
+
+            if (day_id.indexOf(i) > -1) {
+                y_data.push(bmi[j++]);
+            }
+            else {
+                // Put a null to indicate a gap in the data.
+                y_data.push(null);
+            }
+        }
+        
+
+        // Plot the chart.
+        var ctx = document.getElementById('BMIChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    label: "Upper Normal Limit",
+                    type: "line",
+                    borderColor: "#c45850",
+                    data: healthyUpperLimit,
+                    fill: false
+                }, {
+                    label: "Lower Normal Limit",
+                    type: "line",
+                    borderColor: "#3cba9f",
+                    data: healthyLowerLimit,
+                    fill: false
+                }, {
+                    label: "Your Data",
+                    type: "bar",
+                    backgroundColor: "#3e95cd",
+                    data: y_data,
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Body Mass Index'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
     // AJAX post the data to the friends API.
     $.get("/api/metrics", function (data) {
 
         console.log(data);
         plotRBPM(data.day_id, data.rbpm);
+        plotBMI(data.day_id,data.bmi);
 
     });
 
