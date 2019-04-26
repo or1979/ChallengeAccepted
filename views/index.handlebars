@@ -1,20 +1,23 @@
 <a id="fitnessCall" class="btn btn-primary btn-lg" ng-click="active">Begin Fitness Challenge</a>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
 
 <script>
-$("#fitnessCall").on("click", function(event) {
-  console.log($(this));
-window.location="http://localhost:3000/fitness"
-   //$.ajax("/api/fitness", {
-     // type: "GET"
-   // }).then(
+
+  $(document).ready(function () {
+
+    $("#fitnessCall").on("click", function (event) {
+      console.log($(this));
+      window.location = "/fitness";//"http://localhost:3000/fitness"
+      //$.ajax("/api/fitness", {
+      // type: "GET"
+      // }).then(
       //function() {
-       // console.log("created new cat");
-        // Reload the page to get the updated list
+      // console.log("created new cat");
+      // Reload the page to get the updated list
       //  location.reload();
-     // }
-   // );
+      // }
+      // );
+    });
+
   });
 </script>

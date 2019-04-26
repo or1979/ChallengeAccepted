@@ -19,39 +19,43 @@ module.exports = function (app) {
       console.log(retObj);
       res.json(retObj);
     });
-      
-module.exports = function(app) {
-  app.get("/fitness", function(req, res) {
+
+  });
+
+  
+  app.get("/fitness", function (req, res) {
     console.log("Orran's Link to fitness");
     res.render("testFitness", {});
     console.log("testing123");
   });
-  
+
   // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+app.get("/api/examples", function(req, res) {
+  db.Example.findAll({}).then(function(dbExamples) {
+    res.json(dbExamples);
+  }); 
+});
+
+    // Get all examples
+  app.get("/api/examples", function (req, res) {
+    db.Example.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
 
-    // Get all examples
-    app.get("/api/examples", function (req, res) {
-      db.Example.findAll({}).then(function (dbExamples) {
-        res.json(dbExamples);
-      });
-    });
-
     // Create a new example
-    app.post("/api/examples", function (req, res) {
-      db.Example.create(req.body).then(function (dbExample) {
-        res.json(dbExample);
-      });
+  app.post("/api/examples", function (req, res) {
+    db.Example.create(req.body).then(function (dbExample) {
+      res.json(dbExample);
     });
+  });
 
     // Delete an example by id
-    app.delete("/api/examples/:id", function (req, res) {
-      db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-        res.json(dbExample);
-      });
+  app.delete("/api/examples/:id", function (req, res) {
+    db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+      res.json(dbExample);
     });
-  };
+  });
+
+};
+  
