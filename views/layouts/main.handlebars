@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html>
-{{!-- <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-  <title>Home Page</title>
-</head> --}}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,21 +7,20 @@
     <title>Homepage</title>
     <!-- icon for challenges -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../public/styles/styles.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/styles/styles.css">
 </head>
 
 <body>
-<div class="container">
-        <div class="jumbotron mt-4">
-          <h1>Will you Accept this Challenge?</h1>
+<div class="container text-center bg-dark">
+        <div class="jumbotron bg-dark text-white">
+          <h1>Will You Accept This Challenge?</h1>
           <hr>
-          <p> Defining Your Challenge <br> To achieve the accomplishment of being a wholesome person, we challenge you to commit to 30 Days of tracking and improving your body, mind and soul. 
-          Once accepted each day you will be provided a daily dose of inspiration, an exercise routine, and a journal entry to measure your progress. 
-          You will be responsible for entering information included in your journal; BMI, RBPM, completing your challenge survey and reflection.</p>
+          <p> Craving a sense of accomplishment? We have a challenge for you to become a more well-rounded wholesome person. 
+            Commit to 30 days of training your mind, body and soul. Each day you will be provided a daily challenge including; a physical exercise, dose of inspiration, and a journal reflection
+            to track and record your progress. The information you will be asked to reflect upon will be your BMI, RBPM, Mood, Level of Challenge in a journal entry. 
+            Upon completion of the 30 days you will be presented with a graph and report on your progress.</p>
            {{!-- js for button to load the rest of the page --}}
-           <a id="loadChallenge" class="btn btn-danger">Challenge Accepted!</a>
+           <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
           </div>
         </div>
         <div class ="row">
@@ -35,8 +28,8 @@
         <div class="card">
                 <h5 class="card-header">Mind</h5>
                 <div class="card-body">
-                  <h5 class="card-title">A daily dose of inspiration</h5>
-                  <p class="card-text">"http://localhost:3000/api/inspiration/20"</p>
+                  <h5 class="card-title">Daily dose of inspiration</h5>
+                  <p class="card-text">" TD Insert http://localhost:3000/api/inspiration/20"</p>
                 </div>
                 </div>
             </div>
@@ -51,13 +44,9 @@
                 <h5 class="card-header">Spirit</h5>
                 <div class="card-body">
                   <h5 class="card-title">Your Avatar Progress</h5>
-                  <p class="card-text">insert progress bar</p>
-                  <button ng-click="count = count + 1" ng-init="count=0">
-  Increment
-</button>
-<span>
-  count: {{count}}
-</span>
+                  <p class="card-text">TD insert progress bar</p>
+                  <button ng-click="count = count + 1" ng-init="count=0">Increment</button>
+                  <span>count: {{count}}</span>
                 </div>
                 </div>
             </div>
