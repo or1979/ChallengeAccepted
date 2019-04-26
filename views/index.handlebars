@@ -38,7 +38,7 @@
             <div class="card text-center">
                     <h5 class="card-header">Body</h5>
                     <div class="card-body">
-                      <a id="fitness button" class="btn btn-primary" ng-click="active">Begin Fitness Challenge</a>
+                      <a id="fitnessCall" class="btn btn-primary" ng-click="active">Begin Fitness Challenge</a>
                       {{!-- <a href="#" class="btn btn-primary">Day</a>
                       <a href="#" class="btn btn-primary">Day</a>
                       <a href="#" class="btn btn-primary">Day</a>
@@ -129,3 +129,18 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
+
+<script>
+$("#fitnessCall").on("click", function(event) {
+  console.log($(this))
+   $.ajax("/api/fitness", {
+      type: "GET"
+    }).then(
+      //function() {
+       // console.log("created new cat");
+        // Reload the page to get the updated list
+      //  location.reload();
+     // }
+    );
+  });
+</script>
