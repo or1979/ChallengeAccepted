@@ -1,5 +1,6 @@
 var db = require("../models");
 
+
 module.exports = function (app) {
 
   // Get the inspiration data for a specific day.
@@ -18,8 +19,20 @@ module.exports = function (app) {
       console.log(retObj);
       res.json(retObj);
     });
+      
+module.exports = function(app) {
+  app.get("/fitness", function(req, res) {
+    console.log("Orran's Link to fitness");
+    res.render("testFitness", {});
+    console.log("testing123");
   });
-
+  
+  // Get all examples
+  app.get("/api/examples", function(req, res) {
+    db.Example.findAll({}).then(function(dbExamples) {
+      res.json(dbExamples);
+    });
+  });
 
     // Get all examples
     app.get("/api/examples", function (req, res) {
