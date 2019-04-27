@@ -10,3 +10,9 @@
   color: black;
   text-align: center;
 }
+
+.default-blog-button {
+  margin-top: 50px !important;
+  margin-bottom: 50px !important;
+  width: 10px !important;
+}

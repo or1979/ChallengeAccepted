@@ -1,4 +1,8 @@
 <a id="fitnessCall" class="btn btn-primary btn-lg" ng-click="active">Begin Fitness Challenge</a>
+<br>
+<a id="checkinCall" class="btn btn-warning btn-lg" ng-click="active">Daily Check In</a>
+<br>
+<a id="chartsCall" class="btn btn-success btn-lg" ng-click="active">Cross the Finish Line!</a>
 
 
 <script>
@@ -7,17 +11,21 @@
 
     $("#fitnessCall").on("click", function (event) {
       console.log($(this));
-      window.location = "/fitness";//"http://localhost:3000/fitness"
-      //$.ajax("/api/fitness", {
-      // type: "GET"
-      // }).then(
-      //function() {
-      // console.log("created new cat");
-      // Reload the page to get the updated list
-      //  location.reload();
-      // }
-      // );
+      window.location = "/fitness";
+    });
+
+    // Pull up the self reporting page.
+    $("#checkinCall").on("click", function (event) {
+      console.log("checkinCall button clicked.");
+      window.location = "/checkin";
+    });
+
+    // Pull up the charts page.
+    $("#chartsCall").on("click", function (event) {
+      console.log("chartsCall button clicked.");
+      window.location = "/completed";
     });
 
   });
+
 </script>
