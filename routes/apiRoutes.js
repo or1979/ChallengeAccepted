@@ -34,10 +34,34 @@ module.exports = function (app) {
   app.post("/api/accept_challenge", function (req, res) {
     console.log("/api/accept_challenge");
     console.log(req.body);
+
     db.SpiritTracker.create(req.body).then(function (result) {
       //console.log(result);
       res.json(result);
     });
+  });
+
+  // Update the checkin counter.
+  app.put("/api/update_checkin", function (req, res) {
+    console.log("/api/update_checkin");
+    console.log("id : " + req.body.id);
+    console.log("checkin_counter : " + req.body.checkin_counter);
+
+    let putObj = {
+      checkin_counter: req.body.checkin_counter,
+      updatedAt: Date()
+    };
+    db.SpiritTracker.update(putObj,
+      {
+        where: {
+          id: req.body.id
+        }
+      })
+      .then(function (result) {
+        console.log(result);
+        res.status(200).end();
+      });
+
   });
 
   // Get the inspiration data for a specific day.
