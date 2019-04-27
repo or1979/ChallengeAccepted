@@ -1,6 +1,5 @@
 var db = require("../models");
 
-
 module.exports = function (app) {
 
   // Get the inspiration data for a specific day.
