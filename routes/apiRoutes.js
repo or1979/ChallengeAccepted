@@ -8,7 +8,7 @@ module.exports = function (app) {
     console.log("/api/accepted");
 
     db.SpiritTracker.findAll({}).then(function (result) {
-      console.log(result);
+      //console.log(result);
       console.log(result.length);
       let retObj = null;
       if (result.length == 0) {
@@ -23,7 +23,7 @@ module.exports = function (app) {
           data: result
         }
       }
-      console.log(retObj);
+      //console.log(retObj);
       res.json(retObj);
 
     });
@@ -35,7 +35,7 @@ module.exports = function (app) {
     console.log("/api/accept_challenge");
     console.log(req.body);
     db.SpiritTracker.create(req.body).then(function (result) {
-      console.log(result);
+      //console.log(result);
       res.json(result);
     });
   });

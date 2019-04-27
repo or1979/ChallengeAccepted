@@ -8,11 +8,13 @@
   <title>Homepage</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Charts CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
@@ -41,7 +43,7 @@
         Mood, Level of Challenge in a journal entry.
         Upon completion of the 30 days you will be presented with a graph and report on your progress.</p>
       {{!-- js for button to load the rest of the page --}}
-      <a id="loadChallenge" class="btn btn-danger btn-lg" onclick="move()">Challenge Accepted!</a>
+      <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
     </div>
   </div>
   <div class="row" id="challengeZone">
@@ -52,7 +54,8 @@
           <h5 class="card-title">Inspirational <br> Quote & Picture</h5>
           <div id="inspirationText" class="card-text"></div>
           <div id="inspirationAuthor" class="card-text"></div>
-          <img src="https://source.unsplash.com/random?nature" class="card-img-top" alt="inspirational image to change your life">
+          <img src="https://source.unsplash.com/random?nature" class="card-img-top"
+            alt="inspirational image to change your life">
         </div>
       </div>
     </div>
@@ -60,7 +63,7 @@
       <div class="card text-center">
         <h5 class="card-header text-center">Body</h5>
         <div id="cardBody">
-        {{{body}}}
+          {{{body}}}
         </div>
       </div>
     </div>
@@ -71,7 +74,7 @@
           <h5 class="card-title">Your Avatar Progress</h5>
           <div class="w3-light-grey">
             <div id="myBar" class="w3-container w3-green w3-center" style="width:0%">0%</div>
-          </div> 
+          </div>
         </div>
       </div>
     </div>
@@ -84,26 +87,43 @@
 
   $(document).ready(function () {
 
-  $("#cardBody").hide();
-  $("#loadChallenge").click(function() {
-    $("#cardBody").show();
-  });
+    // When Challenge Accepted button is clicked, enter a record into the spirittrackers
+    // table to indicate that the challenge has begun.
+    $("#loadChallenge").click(function () {
+
+      let postObj = {
+        start_date: Date(),
+        checkin_counter: 0
+      };
+
+      //console.log(postObj);
+
+      $.post("/api/accept_challenge", postObj, function (result) {
+        // Reload the landing page.
+        window.location = "/";
+      });
+
+    });
 
     // Determine whether challenge was accepted and if so, how many days of checkin
     // are completed.
-    $.get("/api/accepted", function(data) {
+    $.get("/api/accepted", function (data) {
       console.log("/api/accepted");
       console.log(data);
 
       if (data.started) {
+        // Disable the Challenge Accepted button.
+        console.log("Disable the loadChallenge button.");
+        $("#loadChallenge").hide();
+        
         console.log("Display the three button page and disable the Challenge Accepted button.");
         $("#cardBody").show();
-        
+
         console.log("Update the spirit tracker");
         console.log(data.data[0].checkin_counter);
       }
       else {
-          $("#cardBody").hide();
+        $("#cardBody").hide();
       }
     });
 
@@ -126,21 +146,21 @@
 
   //progress spirit bar move function
 
-function move() {
-    var elem = document.getElementById("myBar"); 
+  function move() {
+    var elem = document.getElementById("myBar");
     var width = 3;
     var id = setInterval(frame, 20);
-    
+
     function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-        } else {
-            width++; 
-            elem.style.width = width + '%'; 
-            elem.innerHTML = width * 1 + '%';
-        }
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++;
+        elem.style.width = width + '%';
+        elem.innerHTML = width * 1 + '%';
+      }
     }
-}
+  }
 </script>
 
 </html>
