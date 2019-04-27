@@ -11,6 +11,12 @@ module.exports = function (app) {
     });
   });
 
+  // Load the checkin page.
+  app.get("/checkin", function (req, res) {
+    console.log("/checkin");
+    res.render("testCheckin", {});
+  });
+
   // Load the challenge completed page.
   app.get("/completed", function (req, res) {
     console.log("/completed");
