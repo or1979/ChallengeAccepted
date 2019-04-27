@@ -183,9 +183,40 @@
             var btnId = "" + i;
             newBtn.attr("id", i);
             newBtn.attr("type","button");
-            newBtn.addClass("btn btn-secondary btn-sm blog-button");
+            // Code button according to mood.
+            let day_idx = day_id.indexOf(i);
+            if ( day_idx!=-1 )
+            {
+                newBtn.prop("disabled", false);
+                let myMood = mood[day_idx];
+                switch(myMood) {
+                    case 0:
+                    newBtn.addClass("btn btn-primary btn-sm blog-button");
+                    break;
+
+                    case 1:
+                    newBtn.addClass("btn btn-success btn-sm blog-button");
+                    break;
+
+                    case 2:
+                    newBtn.addClass("btn btn-warning btn-sm blog-button");
+                    break;
+
+                    case 3:
+                    newBtn.addClass("btn btn-danger btn-sm blog-button");
+                    break;
+
+                    default:
+                    newBtn.addClass("btn btn-secondary btn-sm blog-button");
+                    newBtn.prop("disabled", true);
+                    break
+                }
+            }
+            else {
+                newBtn.addClass("btn btn-secondary btn-sm blog-button");
+                newBtn.prop("disabled", true);
+            }
             newBtn.text("Day "+i);
-            newBtn.prop("disabled", true);
 
             $("#Blog").append(newBtn);
         }
