@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Sherlocked14!",
-    "database": "exampledb",
+    "database": "challenge_db",
     "host": "localhost",
     "dialect": "mysql"
   },

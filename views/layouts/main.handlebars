@@ -9,11 +9,11 @@
   <title>Homepage</title>
   <!-- icon for challenges -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/js/index.js"></script>
-
 
 </head>
 
@@ -35,22 +35,24 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="card">
-        <h5 class="card-header">Mind</h5>
+        <h5 class="card-header text-center">Mind</h5>
         <div class="card-body">
-          <h5 class="card-title">Daily dose of inspiration</h5>
-          <div id="inspirationText" class="card-text">" TD Insert http://localhost:3000/api/inspiration/20"</div>
+          <h5 class="card-title">Inspirational <br> Quote & Picture</h5>
+          <div id="inspirationText" class="card-text"></div>
+          <div id="inspirationAuthor" class="card-text"></div>
+          <img src="https://source.unsplash.com/random?nature" class="card-img-top" alt="inspirational image to change your life">
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card text-center">
-        <h5 class="card-header">Body</h5>
+        <h5 class="card-header text-center">Body</h5>
         {{{body}}}
       </div>
     </div>
     <div class="col-sm-3">
       <div class="card">
-        <h5 class="card-header">Spirit</h5>
+        <h5 class="card-header text-center">Spirit</h5>
         <div class="card-body">
           <h5 class="card-title">Your Avatar Progress</h5>
           <p class="card-text">TD insert progress bar</p>
@@ -79,6 +81,13 @@
       console.log(data);
 
       $("#inspirationText").html("<p>" + data.quote + "</p>");
+      $("#inspirationAuthor").html("<p>" + " ~ " + data.author + "</p>");
+      
+      var image = $("<img>");
+      var imageDisplay = data.image_url;
+      image.attr("src", imageDisplay);
+      console.log(imageDisplay);
+      $("#inspirationImage").append(image);
 
     });
   });
