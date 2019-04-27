@@ -4,9 +4,17 @@
 <head>
   <meta charset="utf-8">
 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Homepage</title>
+  <!-- icon for challenges -->
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -50,22 +58,24 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="card">
-        <h5 class="card-header">Mind</h5>
+        <h5 class="card-header text-center">Mind</h5>
         <div class="card-body">
-          <h5 class="card-title">Daily dose of inspiration</h5>
-          <div id="inspirationText" class="card-text">" TD Insert http://localhost:3000/api/inspiration/20"</div>
+          <h5 class="card-title">Inspirational <br> Quote & Picture</h5>
+          <div id="inspirationText" class="card-text"></div>
+          <div id="inspirationAuthor" class="card-text"></div>
+          <img src="https://source.unsplash.com/random?nature" class="card-img-top" alt="inspirational image to change your life">
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card text-center">
-        <h5 class="card-header">Body</h5>
+        <h5 class="card-header text-center">Body</h5>
         {{{body}}}
       </div>
     </div>
     <div class="col-sm-3">
       <div class="card">
-        <h5 class="card-header">Spirit</h5>
+        <h5 class="card-header text-center">Spirit</h5>
         <div class="card-body">
           <h5 class="card-title">Your Avatar Progress</h5>
           <p class="card-text">TD insert progress bar</p>
@@ -94,6 +104,13 @@
       console.log(data);
 
       $("#inspirationText").html("<p>" + data.quote + "</p>");
+      $("#inspirationAuthor").html("<p>" + " ~ " + data.author + "</p>");
+      
+      var image = $("<img>");
+      var imageDisplay = data.image_url;
+      image.attr("src", imageDisplay);
+      console.log(imageDisplay);
+      $("#inspirationImage").append(image);
 
     });
   });
