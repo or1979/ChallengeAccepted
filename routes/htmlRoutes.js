@@ -1,6 +1,6 @@
 var db = require("../models");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Load index page
   app.get("/", function(req, res) {
     db.Example.findAll({}).then(function(dbExamples) {
@@ -9,6 +9,18 @@ module.exports = function(app) {
         examples: dbExamples
       });
     });
+  });
+
+  // Load the checkin page.
+  app.get("/checkin", function (req, res) {
+    console.log("/checkin");
+    res.render("testCheckin", {});
+  });
+
+  // Load the challenge completed page.
+  app.get("/completed", function (req, res) {
+    console.log("/completed");
+    res.render("completed", {});
   });
 
   // Load example page and pass in an example by id

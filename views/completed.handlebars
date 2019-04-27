@@ -1,0 +1,242 @@
+<div class="container">
+    <div id="chartRow" class="row">
+        <div class="col-6">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Resting Beats Per Minute</h5>
+                    <canvas id="RBPMChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Body Mass Index</h5>
+                    <canvas id="BMIChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="blogAll" class="row">
+        <div class="col-12">
+            <div class="card mt-4">
+                <div id="Blog" class="card-body">
+                    <h5 class="card-title">Blog/Mood</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function plotRBPM(day_id, rbpm) {
+
+        // Generate upper and lower healthy RBPM limit.
+        let upperLimit = [];
+        let lowerLimit = [];
+        let x_data = [];
+        let y_data = [];
+        let j = 0;
+
+        // Be sure to mark any skipped days.
+        for (let i = 1; i <= 30; i++) {
+            upperLimit.push(100);
+            lowerLimit.push(60);
+            x_data.push(i);
+
+            if (day_id.indexOf(i) > -1) {
+                y_data.push(rbpm[j++]);
+            }
+            else {
+                // Put a null to indicate a gap in the data.
+                y_data.push(null);
+            }
+        }
+
+
+        // Plot the chart.
+        var ctx = document.getElementById('RBPMChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    label: "Upper Normal Limit",
+                    type: "line",
+                    borderColor: "#c45850",
+                    data: upperLimit,
+                    fill: false
+                }, {
+                    label: "Lower Normal Limit",
+                    type: "line",
+                    borderColor: "#3cba9f",
+                    data: lowerLimit,
+                    fill: false
+                }, {
+                    label: "Your Data",
+                    type: "bar",
+                    backgroundColor: "#3e95cd",
+                    data: y_data,
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Resting Beats Per Minute'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+
+    function plotBMI(day_id, bmi) {
+
+        // Generate upper and lower healthy BMI limit.
+        let healthyUpperLimit = [];
+        let healthyLowerLimit = [];
+        let x_data = [];
+        let y_data = [];
+        let j = 0;
+
+        // Be sure to mark any skipped days.
+        for (let i = 1; i <= 30; i++) {
+            healthyUpperLimit.push(25);
+            healthyLowerLimit.push(18.5);
+            x_data.push(i);
+
+            if (day_id.indexOf(i) > -1) {
+                y_data.push(bmi[j++]);
+            }
+            else {
+                // Put a null to indicate a gap in the data.
+                y_data.push(null);
+            }
+        }
+
+
+        // Plot the chart.
+        var ctx = document.getElementById('BMIChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    label: "Upper Normal Limit",
+                    type: "line",
+                    borderColor: "#c45850",
+                    data: healthyUpperLimit,
+                    fill: false
+                }, {
+                    label: "Lower Normal Limit",
+                    type: "line",
+                    borderColor: "#3cba9f",
+                    data: healthyLowerLimit,
+                    fill: false
+                }, {
+                    label: "Your Data",
+                    type: "bar",
+                    backgroundColor: "#3e95cd",
+                    data: y_data,
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Body Mass Index'
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+
+    }
+
+    function displayBlog(day_id, mood, blog) {
+        console.log(day_id);
+        console.log(mood);
+        console.log(blog);
+
+        for (let i = 1; i <= 30; i++) {
+            var newBtn = $("<button>");
+            var btnId = "" + i;
+            newBtn.attr("id", i);
+            newBtn.attr("type","button");
+            // Code button according to mood.
+            let day_idx = day_id.indexOf(i);
+            if ( day_idx!=-1 )
+            {
+                newBtn.prop("disabled", false);
+                let myMood = mood[day_idx];
+                switch(myMood) {
+                    case 0:
+                    newBtn.addClass("btn btn-primary btn-sm blog-button");
+                    break;
+
+                    case 1:
+                    newBtn.addClass("btn btn-success btn-sm blog-button");
+                    break;
+
+                    case 2:
+                    newBtn.addClass("btn btn-warning btn-sm blog-button");
+                    break;
+
+                    case 3:
+                    newBtn.addClass("btn btn-danger btn-sm blog-button");
+                    break;
+
+                    default:
+                    newBtn.addClass("btn btn-secondary btn-sm blog-button");
+                    newBtn.prop("disabled", true);
+                    break
+                }
+            }
+            else {
+                newBtn.addClass("btn btn-secondary btn-sm blog-button");
+                newBtn.prop("disabled", true);
+            }
+            newBtn.text("Day "+i);
+
+            $("#Blog").append(newBtn);
+        }
+    }
+
+    // AJAX post the data to the friends API.
+    function plot() {
+        $.get("/api/metrics", function (data) {
+
+            console.log(data);
+            plotRBPM(data.day_id, data.rbpm);
+            plotBMI(data.day_id, data.bmi);
+            displayBlog(data.day_id, data.mood, data.blog);
+
+        });
+    }
+
+    $(document).ready(function () {
+        plot();
+    })
+
+
+</script>
