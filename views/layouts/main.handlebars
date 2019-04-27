@@ -111,15 +111,54 @@
       console.log(data);
 
       if (data.started) {
+
+        let checkin_counter = data.data[0].checkin_counter;
+
         // Disable the Challenge Accepted button.
         console.log("Disable the loadChallenge button.");
         $("#loadChallenge").hide();
-        
+
+        // Determine whether the buttons on the index card exist at this point.
+        // Hide or show them according to the value on the checkin_counter
+        // Show the fitness call button only if fewer than 30 checkins have
+        // been performed.
+        if ($("#fitnessCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#fitnessCall").show();
+          }
+          else {
+            $("#fitnessCall").hide();
+          }
+        }
+
+        // Show the checkin call button only if fewer than 30 checkins have
+        // been performed.
+        if ($("#checkinCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#checkinCall").show();
+          }
+          else {
+            $("#checkinCall").hide();
+          }
+        }
+
+        // Show the chartsCall button only if 30 checkins have been performed.
+        // i.e at the end of the challenge.
+        if ($("#chartsCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#chartsCall").hide();
+          }
+          else {
+            $("#chartsCall").show();
+          }
+        }
+
         console.log("Display the three button page and disable the Challenge Accepted button.");
         $("#cardBody").show();
 
+        // TODO : UPDATE THE SPIRIT TRACKER HERE
         console.log("Update the spirit tracker");
-        console.log(data.data[0].checkin_counter);
+        console.log(checkin_counter);
       }
       else {
         $("#cardBody").hide();
