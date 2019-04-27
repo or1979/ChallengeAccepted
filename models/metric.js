@@ -3,7 +3,8 @@ module.exports = function (sequelize, DataTypes) {
         day_id: DataTypes.INTEGER,
         rbpm: DataTypes.INTEGER,
         bmi: DataTypes.FLOAT,
-        blog: DataTypes.TEXT
+        blog: DataTypes.TEXT,
+        mood: DataTypes.INTEGER
     });
     return Metric;
 };

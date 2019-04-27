@@ -21,17 +21,82 @@
   <title>Document</title>
 
   <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/index.js"></script>
 
   <!-- Charts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 
 
   <title>Home Page</title>
+
 </head>
 
 <body>
-  {{{body}}}
+  <div class="container text-center bg-dark">
+    <div class="jumbotron bg-dark text-white">
+      <h1>Will You Accept This Challenge?</h1>
+      <hr>
+      <p> Craving a sense of accomplishment? We have a challenge for you to become a more well-rounded wholesome person.
+        Commit to 30 days of training your mind, body and soul. Each day you will be provided a daily challenge
+        including; a physical exercise, dose of inspiration, and a journal reflection
+        to track and record your progress. The information you will be asked to reflect upon will be your BMI, RBPM,
+        Mood, Level of Challenge in a journal entry.
+        Upon completion of the 30 days you will be presented with a graph and report on your progress.</p>
+      {{!-- js for button to load the rest of the page --}}
+      <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card">
+        <h5 class="card-header">Mind</h5>
+        <div class="card-body">
+          <h5 class="card-title">Daily dose of inspiration</h5>
+          <div id="inspirationText" class="card-text">" TD Insert http://localhost:3000/api/inspiration/20"</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text-center">
+        <h5 class="card-header">Body</h5>
+        {{{body}}}
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card">
+        <h5 class="card-header">Spirit</h5>
+        <div class="card-body">
+          <h5 class="card-title">Your Avatar Progress</h5>
+          <p class="card-text">TD insert progress bar</p>
+          <button ng-click="count = count + 1" ng-init="count=0">Increment</button>
+          <span>count: {{count}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </body>
+
+<script>
+
+  $(document).ready(function () {
+
+    // Generate a random day.
+    let rand_day = Math.floor(Math.random() * 30) + 1;
+    let query = "/api/inspiration/" + rand_day;
+    console.log("Query : " + query);
+
+    // Get the inspiration data.
+    $.get(query, function (data) {
+
+      console.log("RECEIVED FROM POST : " + JSON.stringify(data));
+      console.log(data);
+
+      $("#inspirationText").html("<p>" + data.quote + "</p>");
+
+    });
+  });
+</script>
 
 </html>

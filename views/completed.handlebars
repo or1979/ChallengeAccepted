@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row">
+    <div id="chartRow" class="row">
         <div class="col-6">
             <div class="card mt-4">
                 <div class="card-body">
@@ -14,6 +14,16 @@
                 <div class="card-body">
                     <h5 class="card-title">Body Mass Index</h5>
                     <canvas id="BMIChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="blogAll" class="row">
+        <div class="col-12">
+            <div class="card mt-4">
+                <div id="Blog" class="card-body">
+                    <h5 class="card-title">Blog/Mood</h5>
                 </div>
             </div>
         </div>
@@ -45,7 +55,7 @@
                 y_data.push(null);
             }
         }
-        
+
 
         // Plot the chart.
         var ctx = document.getElementById('RBPMChart');
@@ -105,7 +115,7 @@
         // Be sure to mark any skipped days.
         for (let i = 1; i <= 30; i++) {
             healthyUpperLimit.push(25);
-            healthyLowerLimit.push(18.5);  
+            healthyLowerLimit.push(18.5);
             x_data.push(i);
 
             if (day_id.indexOf(i) > -1) {
@@ -116,7 +126,7 @@
                 y_data.push(null);
             }
         }
-        
+
 
         // Plot the chart.
         var ctx = document.getElementById('BMIChart');
@@ -163,13 +173,39 @@
 
     }
 
+    function displayBlog(day_id, mood, blog) {
+        console.log(day_id);
+        console.log(mood);
+        console.log(blog);
+
+        for (let i = 1; i <= 30; i++) {
+            var newBtn = $("<button>");
+            var btnId = "" + i;
+            newBtn.attr("id", i);
+            newBtn.attr("type","button");
+            newBtn.addClass("btn btn-secondary btn-sm blog-button");
+            newBtn.text("Day "+i);
+            newBtn.prop("disabled", true);
+
+            $("#Blog").append(newBtn);
+        }
+    }
+
     // AJAX post the data to the friends API.
-    $.get("/api/metrics", function (data) {
+    function plot() {
+        $.get("/api/metrics", function (data) {
 
-        console.log(data);
-        plotRBPM(data.day_id, data.rbpm);
-        plotBMI(data.day_id,data.bmi);
+            console.log(data);
+            plotRBPM(data.day_id, data.rbpm);
+            plotBMI(data.day_id, data.bmi);
+            displayBlog(data.day_id, data.mood, data.blog);
 
-    });
+        });
+    }
+
+    $(document).ready(function () {
+        plot();
+    })
+
 
 </script>
