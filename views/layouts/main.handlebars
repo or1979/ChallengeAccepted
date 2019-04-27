@@ -81,15 +81,31 @@
 
 <script>
 
-  //load page function on "Challenge Accepted"
-$(document).ready(function () {
+
+  $(document).ready(function () {
+
   $("#cardBody").hide();
   $("#loadChallenge").click(function() {
     $("#cardBody").show();
   });
-  });
 
-  $(document).ready(function () {
+    // Determine whether challenge was accepted and if so, how many days of checkin
+    // are completed.
+    $.get("/api/accepted", function(data) {
+      console.log("/api/accepted");
+      console.log(data);
+
+      if (data.started) {
+        console.log("Display the three button page and disable the Challenge Accepted button.");
+        $("#cardBody").show();
+        
+        console.log("Update the spirit tracker");
+        console.log(data.data[0].checkin_counter);
+      }
+      else {
+          $("#cardBody").hide();
+      }
+    });
 
     // Generate a random day.
     let rand_day = Math.floor(Math.random() * 30) + 1;
