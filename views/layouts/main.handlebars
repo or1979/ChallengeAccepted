@@ -3,30 +3,23 @@
 
 <head>
   <meta charset="utf-8">
-
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Homepage</title>
-  <!-- icon for challenges -->
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Charts CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
   <!-- Custom CSS -->
-  <link rel=" stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-
-  <title>Document</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="/styles/styles.css">
 
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -34,10 +27,6 @@
 
   <!-- Charts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-
-
-  <title>Home Page</title>
-
 </head>
 
 <body>
@@ -52,7 +41,7 @@
         Mood, Level of Challenge in a journal entry.
         Upon completion of the 30 days you will be presented with a graph and report on your progress.</p>
       {{!-- js for button to load the rest of the page --}}
-      <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
+      <a id="loadChallenge" class="btn btn-danger btn-lg" onclick="move()">Challenge Accepted!</a>
     </div>
   </div>
   <div class="row">
@@ -78,9 +67,9 @@
         <h5 class="card-header text-center">Spirit</h5>
         <div class="card-body">
           <h5 class="card-title">Your Avatar Progress</h5>
-          <p class="card-text">TD insert progress bar</p>
-          <button ng-click="count = count + 1" ng-init="count=0">Increment</button>
-          <span>count: {{count}}</span>
+          <div class="w3-light-grey">
+            <div id="myBar" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+          </div> 
         </div>
       </div>
     </div>
@@ -105,15 +94,27 @@
 
       $("#inspirationText").html("<p>" + data.quote + "</p>");
       $("#inspirationAuthor").html("<p>" + " ~ " + data.author + "</p>");
-      
-      var image = $("<img>");
-      var imageDisplay = data.image_url;
-      image.attr("src", imageDisplay);
-      console.log(imageDisplay);
-      $("#inspirationImage").append(image);
 
     });
   });
+
+  //progress spirit bar move function
+
+function move() {
+    var elem = document.getElementById("myBar"); 
+    var width = 3;
+    var id = setInterval(frame, 10);
+    
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+            elem.innerHTML = width * 1 + '%';
+        }
+    }
+}
 </script>
 
 </html>
