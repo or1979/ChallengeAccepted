@@ -32,6 +32,8 @@
 
 <script type="text/javascript">
 
+    var metricsData = null;
+
     function plotRBPM(day_id, rbpm) {
 
         // Generate upper and lower healthy RBPM limit.
@@ -220,6 +222,21 @@
 
             $("#Blog").append(newBtn);
         }
+
+        // This function handles events where a topic button is clicked
+       $(".blog-button").on("click", function () {
+            let button_day_id = parseInt($(this).attr("id"));
+            console.log("blog button clicked : " + button_day_id);
+
+            console.log(metricsData.day_id);
+            console.log("=============");
+
+            let day_idx = metricsData.day_id.indexOf(button_day_id);
+            console.log(day_idx);
+            let my_blog = metricsData.blog[day_idx];
+            console.log(my_blog);
+            let my_mood = metricsData.mood[day_idx];
+        });
     }
 
     // AJAX post the data to the friends API.
@@ -227,6 +244,7 @@
         $.get("/api/metrics", function (data) {
 
             console.log(data);
+            metricsData = data; // Assign to a global to get the blog button callback to see it.
             plotRBPM(data.day_id, data.rbpm);
             plotBMI(data.day_id, data.bmi);
             displayBlog(data.day_id, data.mood, data.blog);
