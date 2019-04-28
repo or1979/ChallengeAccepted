@@ -258,21 +258,20 @@
                 let my_mood = parseInt(metricsData.mood[day_idx]);
                 switch(my_mood) {
                     case 0:
-                    my_mood_str = "Low Energy";
+                    my_mood_str = "<i class=\"far fa-frown\"></i>";
                     break;
                     case 1:
-                    my_mood_str = "Calm";
+                    my_mood_str = "<i class=\"far fa-smile\"></i>";
                     break;
                     case 2:
-                    my_mood_str = "On Edge";
+                    my_mood_str = "<i class=\"far fa-dizzy\"></i>";
                     break;
                     case 3:
-                    my_mood_str = "Aggitated";
+                    my_mood_str = "<i class=\"far fa-angry\"></i>";
                     break;
                 }
                 
-                blog_text_str = "<h3>Mood : " + my_mood_str + "</h3>";
-                blog_text_str = blog_text_str + "<h4>" + my_blog + "</h4>";
+                blog_text_str = "<h4>" + my_blog + " " + my_mood_str + "</h4>";
             }
             $("#blog-text").html(blog_text_str);
 
