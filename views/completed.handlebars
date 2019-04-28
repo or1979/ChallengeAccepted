@@ -1,4 +1,20 @@
 <div class="container">
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-card" class="card" style="width: 100%;">
+                <div id="modal-card-body" class="card-body">
+                    <h3 id="modal-card-title" class="card-title">Card title</h3>
+                    <h4 id="blog-text" class="card-text"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="chartRow" class="row">
         <div class="col-6">
             <div class="card mt-4">
@@ -184,47 +200,46 @@
             var newBtn = $("<button>");
             var btnId = "" + i;
             newBtn.attr("id", i);
-            newBtn.attr("type","button");
+            newBtn.attr("type", "button");
             // Code button according to mood.
             let day_idx = day_id.indexOf(i);
-            if ( day_idx!=-1 )
-            {
+            if (day_idx != -1) {
                 newBtn.prop("disabled", false);
                 let myMood = mood[day_idx];
-                switch(myMood) {
+                switch (myMood) {
                     case 0:
-                    newBtn.addClass("btn btn-primary btn-sm blog-button");
-                    break;
+                        newBtn.addClass("btn btn-primary btn-sm blog-button");
+                        break;
 
                     case 1:
-                    newBtn.addClass("btn btn-success btn-sm blog-button");
-                    break;
+                        newBtn.addClass("btn btn-success btn-sm blog-button");
+                        break;
 
                     case 2:
-                    newBtn.addClass("btn btn-warning btn-sm blog-button");
-                    break;
+                        newBtn.addClass("btn btn-warning btn-sm blog-button");
+                        break;
 
                     case 3:
-                    newBtn.addClass("btn btn-danger btn-sm blog-button");
-                    break;
+                        newBtn.addClass("btn btn-danger btn-sm blog-button");
+                        break;
 
                     default:
-                    newBtn.addClass("btn btn-secondary btn-sm blog-button");
-                    newBtn.prop("disabled", true);
-                    break
+                        newBtn.addClass("btn btn-secondary btn-sm blog-button");
+                        newBtn.prop("disabled", true);
+                        break
                 }
             }
             else {
                 newBtn.addClass("btn btn-secondary btn-sm blog-button");
                 newBtn.prop("disabled", true);
             }
-            newBtn.text("Day "+i);
+            newBtn.text("Day " + i);
 
             $("#Blog").append(newBtn);
         }
 
         // This function handles events where a topic button is clicked
-       $(".blog-button").on("click", function () {
+        $(".blog-button").on("click", function () {
             let button_day_id = parseInt($(this).attr("id"));
             console.log("blog button clicked : " + button_day_id);
 
@@ -233,9 +248,36 @@
 
             let day_idx = metricsData.day_id.indexOf(button_day_id);
             console.log(day_idx);
-            let my_blog = metricsData.blog[day_idx];
-            console.log(my_blog);
-            let my_mood = metricsData.mood[day_idx];
+
+            // Write information to the modal.
+            $("#modal-card-title").text("Day " + button_day_id);
+            let blog_text_str = "No Entry";
+            if (day_idx != -1) {
+                let my_blog = metricsData.blog[day_idx];
+                console.log(my_blog);
+                let my_mood = parseInt(metricsData.mood[day_idx]);
+                switch(my_mood) {
+                    case 0:
+                    my_mood_str = "Low Energy";
+                    break;
+                    case 1:
+                    my_mood_str = "Calm";
+                    break;
+                    case 2:
+                    my_mood_str = "On Edge";
+                    break;
+                    case 3:
+                    my_mood_str = "Aggitated";
+                    break;
+                }
+                
+                blog_text_str = "<h3>Mood : " + my_mood_str + "</h3>";
+                blog_text_str = blog_text_str + "<h4>" + my_blog + "</h4>";
+            }
+            $("#blog-text").html(blog_text_str);
+
+            let myModal = document.getElementById('myModal');
+            myModal.style.display = "block";
         });
     }
 
@@ -253,6 +295,26 @@
     }
 
     $(document).ready(function () {
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Plot data.
         plot();
     })
 
