@@ -12,9 +12,13 @@ module.exports = function (app) {
   });
 
   // Load the checkin page.
-  app.get("/report", function (req, res) {
+  app.get("/report/:id", function (req, res) {
     console.log("/report");
-    res.render("report", {});
+    let reportObj = {
+      day_id: req.params.id
+    };
+    console.log(reportObj);
+    res.render("report", { data:reportObj });
   });
 
   // Load the challenge completed page.
