@@ -286,12 +286,10 @@
                 }
                 $("#blog-text").html(blog_text_str);
 
-                //let myModal = document.getElementById('myModal');
-                //myModal.style.display = "block";
             });
         }
 
-        // AJAX post the data to the friends API.
+        // AJAX post the data to the API.
         function plot() {
             $.get("/api/metrics", function (data) {
 
