@@ -12,9 +12,9 @@ module.exports = function (app) {
   });
 
   // Load the checkin page.
-  app.get("/checkin", function (req, res) {
-    console.log("/checkin");
-    res.render("testCheckin", {});
+  app.get("/report", function (req, res) {
+    console.log("/report");
+    res.render("report", {});
   });
 
   // Load the challenge completed page.
