@@ -17,7 +17,38 @@
     // Pull up the self reporting page.
     $("#checkinCall").on("click", function (event) {
       console.log("checkinCall button clicked.");
-      window.location = "/checkin";
+
+      // Get the latest checkin_counter value from the database.
+      $.get("/api/accepted", function (data) {
+        console.log("/api/accepted");
+        console.log(data);
+
+        if (data.started) {
+          let checkin_counter = data.data[0].checkin_counter + 1;
+          let id = data.data[0].id;
+
+          // Send a PUT request to update the checkin_counter
+          let putObj = {
+            id: id,
+            checkin_counter: checkin_counter
+          };
+
+          //console.log(putObj);
+
+          // Send the PUT request.
+          $.ajax("/api/update_checkin", {
+            type: "PUT",
+            data: putObj
+          }).then(
+            function () {
+              // Load the checkin page.
+              window.location = "/checkin";
+            }
+          );
+        };
+
+      });
+
     });
 
     // Pull up the charts page.
@@ -30,4 +61,3 @@
 
 
 </script>
-
