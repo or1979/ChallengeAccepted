@@ -3,3 +3,6 @@ CREATE DATABASE exampledb;
 
 DROP DATABASE IF EXISTS testdb;
 CREATE DATABASE testdb;
+
+DROP DATABASE IF EXISTS challenge_db;
+CREATE DATABASE challenge_db;

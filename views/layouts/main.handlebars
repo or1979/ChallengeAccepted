@@ -3,13 +3,202 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-  <title>Home Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Homepage</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Charts CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/index.js"></script>
+
+  <!-- Charts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 </head>
 
 <body>
-  {{{body}}}
+  <div class="container text-center bg-dark">
+    <div class="jumbotron bg-dark text-white">
+      <h1>Will You Accept This Challenge?</h1>
+      <hr>
+      <p> Craving a sense of accomplishment? We have a challenge for you to become a more well-rounded wholesome person.
+        Commit to 30 days of training your mind, body and soul. Each day you will be provided a daily challenge
+        including; a physical exercise, dose of inspiration, and a journal reflection
+        to track and record your progress. The information you will be asked to reflect upon will be your BMI, RBPM,
+        Mood, Level of Challenge in a journal entry.
+        Upon completion of the 30 days you will be presented with a graph and report on your progress.</p>
+      {{!-- js for button to load the rest of the page --}}
+      <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
+    </div>
+  </div>
+  <div class="row" id="challengeZone">
+    <div class="col-sm-3">
+      <div class="card">
+        <h5 class="card-header text-center">Mind</h5>
+        <div class="card-body">
+          <h5 class="card-title">Inspirational <br> Quote & Picture</h5>
+          <div id="inspirationText" class="card-text"></div>
+          <div id="inspirationAuthor" class="card-text"></div>
+          <img src="https://source.unsplash.com/random?nature" class="card-img-top"
+            alt="inspirational image to change your life">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text-center">
+        <h5 class="card-header text-center">Body</h5>
+        <div id="cardBody">
+          {{{body}}}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card">
+        <h5 class="card-header text-center">Spirit</h5>
+        <div class="card-body">
+          <h5 class="card-title">Your Avatar Progress</h5>
+          <div class="w3-light-grey">
+            <div id="myBar" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
+<script>
+
+
+  $(document).ready(function () {
+
+    // When Challenge Accepted button is clicked, enter a record into the spirittrackers
+    // table to indicate that the challenge has begun.
+    $("#loadChallenge").click(function () {
+
+      let postObj = {
+        start_date: Date(),
+        checkin_counter: 0
+      };
+
+      //console.log(postObj);
+
+      $.post("/api/accept_challenge", postObj, function (result) {
+        // Reload the landing page.
+        window.location = "/";
+      });
+
+    });
+
+    // Determine whether challenge was accepted and if so, how many days of checkin
+    // are completed.
+    $.get("/api/accepted", function (data) {
+      console.log("/api/accepted");
+      console.log(data);
+
+      if (data.started) {
+
+        let checkin_counter = data.data[0].checkin_counter;
+
+        // Disable the Challenge Accepted button.
+        console.log("Disable the loadChallenge button.");
+        $("#loadChallenge").hide();
+
+        // Determine whether the buttons on the index card exist at this point.
+        // Hide or show them according to the value on the checkin_counter
+        // Show the fitness call button only if fewer than 30 checkins have
+        // been performed.
+        if ($("#fitnessCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#fitnessCall").show();
+          }
+          else {
+            $("#fitnessCall").hide();
+          }
+        }
+
+        // Show the checkin call button only if fewer than 30 checkins have
+        // been performed.
+        if ($("#checkinCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#checkinCall").show();
+          }
+          else {
+            $("#checkinCall").hide();
+          }
+        }
+
+        // Show the chartsCall button only if 30 checkins have been performed.
+        // i.e at the end of the challenge.
+        if ($("#chartsCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#chartsCall").hide();
+          }
+          else {
+            $("#chartsCall").show();
+          }
+        }
+
+        console.log("Display the three button page and disable the Challenge Accepted button.");
+        $("#cardBody").show();
+
+        // TODO : UPDATE THE SPIRIT TRACKER HERE
+        console.log("Update the spirit tracker");
+        console.log(checkin_counter);
+      }
+      else {
+        $("#cardBody").hide();
+      }
+    });
+
+    // Generate a random day.
+    let rand_day = Math.floor(Math.random() * 30) + 1;
+    let query = "/api/inspiration/" + rand_day;
+    console.log("Query : " + query);
+
+    // Get the inspiration data.
+    $.get(query, function (data) {
+
+      console.log("RECEIVED FROM POST : " + JSON.stringify(data));
+      console.log(data);
+
+      $("#inspirationText").html("<p>" + data.quote + "</p>");
+      $("#inspirationAuthor").html("<p>" + " ~ " + data.author + "</p>");
+
+    });
+  });
+
+  //progress spirit bar move function
+
+  function move() {
+    var elem = document.getElementById("myBar");
+    var width = 3;
+    var id = setInterval(frame, 20);
+
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++;
+        elem.style.width = width + '%';
+        elem.innerHTML = width * 1 + '%';
+      }
+    }
+  }
+</script>
 
 </html>
