@@ -1,3 +1,4 @@
+DELETE FROM Metrics;
 INSERT INTO Metrics (day_id,rbpm,bmi,blog,mood,createdAt,updatedAt) VALUES (1,110,26,"This is too hard!",0,NOW(),NOW());
 INSERT INTO Metrics (day_id,rbpm,bmi,blog,mood,createdAt,updatedAt) VALUES (2,110,26,"Nothing is happening.",0,NOW(),NOW());
 INSERT INTO Metrics (day_id,rbpm,bmi,blog,mood,createdAt,updatedAt) VALUES (3,105,26,"I feel a bit better.",0,NOW(),NOW());
