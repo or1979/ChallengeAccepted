@@ -1,3 +1,4 @@
+DELETE FROM inspirations;
 INSERT INTO inspirations (day_id,quote,author,image_url,createdAt,updatedAt) VALUES (1,'\“Strength does not come from the physical capacity. It comes from an indomitable will.\”','Ghandi',"./images/adam-kool-11868-unsplash.jpg",NOW(),NOW());
 INSERT INTO inspirations (day_id,quote,author,image_url,createdAt,updatedAt) VALUES (2,'\“Training gives us an outlet for suppressed energies created by stress and thus tones the spirit just as exercise conditions the body.\”','Arnold Schwarzenegger',"./images/adam-kool-11868-unsplash.jpg",NOW(),NOW());
 INSERT INTO inspirations (day_id,quote,author,image_url,createdAt,updatedAt) VALUES (3,'\“Your body can stand almost anything. It\'s your mind that you have to convince.\”','Unknown',"./images/adam-kool-11868-unsplash.jpg",NOW(),NOW());
