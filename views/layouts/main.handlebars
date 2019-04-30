@@ -3,17 +3,13 @@
 
 <head>
   <meta charset="utf-8">
-
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Homepage</title>
-  <!-- icon for challenges -->
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
@@ -24,9 +20,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
   <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="/styles/styles.css">
-
-  <title>Document</title>
 
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -34,10 +29,6 @@
 
   <!-- Charts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-
-
-  <title>Home Page</title>
-
 </head>
 
 <body>
@@ -55,7 +46,7 @@
       <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
     </div>
   </div>
-  <div class="row">
+  <div class="row" id="challengeZone">
     <div class="col-sm-3">
       <div class="card">
         <h5 class="card-header text-center">Mind</h5>
@@ -63,14 +54,17 @@
           <h5 class="card-title">Inspirational <br> Quote & Picture</h5>
           <div id="inspirationText" class="card-text"></div>
           <div id="inspirationAuthor" class="card-text"></div>
-          <img src="https://source.unsplash.com/random?nature" class="card-img-top" alt="inspirational image to change your life">
+          <img src="https://source.unsplash.com/random?nature" class="card-img-top"
+            alt="inspirational image to change your life">
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card text-center">
         <h5 class="card-header text-center">Body</h5>
-        {{{body}}}
+        <div id="cardBody">
+          {{{body}}}
+        </div>
       </div>
     </div>
     <div class="col-sm-3">
@@ -78,19 +72,98 @@
         <h5 class="card-header text-center">Spirit</h5>
         <div class="card-body">
           <h5 class="card-title">Your Avatar Progress</h5>
-          <p class="card-text">TD insert progress bar</p>
-          <button ng-click="count = count + 1" ng-init="count=0">Increment</button>
-          <span>count: {{count}}</span>
+          <div class="w3-light-grey">
+            <div id="myBar" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </body>
 
 <script>
 
+
   $(document).ready(function () {
+
+    // When Challenge Accepted button is clicked, enter a record into the spirittrackers
+    // table to indicate that the challenge has begun.
+    $("#loadChallenge").click(function () {
+
+      let postObj = {
+        start_date: Date(),
+        checkin_counter: 0
+      };
+
+      //console.log(postObj);
+
+      $.post("/api/accept_challenge", postObj, function (result) {
+        // Reload the landing page.
+        window.location = "/";
+      });
+
+    });
+
+    // Determine whether challenge was accepted and if so, how many days of checkin
+    // are completed.
+    $.get("/api/accepted", function (data) {
+      console.log("/api/accepted");
+      console.log(data);
+
+      if (data.started) {
+
+        let checkin_counter = data.data[0].checkin_counter;
+
+        // Disable the Challenge Accepted button.
+        console.log("Disable the loadChallenge button.");
+        $("#loadChallenge").hide();
+
+        // Determine whether the buttons on the index card exist at this point.
+        // Hide or show them according to the value on the checkin_counter
+        // Show the fitness call button only if fewer than 30 checkins have
+        // been performed.
+        if ($("#fitnessCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#fitnessCall").show();
+          }
+          else {
+            $("#fitnessCall").hide();
+          }
+        }
+
+        // Show the checkin call button only if fewer than 30 checkins have
+        // been performed.
+        if ($("#checkinCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#checkinCall").show();
+          }
+          else {
+            $("#checkinCall").hide();
+          }
+        }
+
+        // Show the chartsCall button only if 30 checkins have been performed.
+        // i.e at the end of the challenge.
+        if ($("#chartsCall").length > 0) {
+          if (checkin_counter < 30) {
+            $("#chartsCall").hide();
+          }
+          else {
+            $("#chartsCall").show();
+          }
+        }
+
+        console.log("Display the three button page and disable the Challenge Accepted button.");
+        $("#cardBody").show();
+
+        // TODO : UPDATE THE SPIRIT TRACKER HERE
+        console.log("Update the spirit tracker");
+        console.log(checkin_counter);
+      }
+      else {
+        $("#cardBody").hide();
+      }
+    });
 
     // Generate a random day.
     let rand_day = Math.floor(Math.random() * 30) + 1;
@@ -105,15 +178,27 @@
 
       $("#inspirationText").html("<p>" + data.quote + "</p>");
       $("#inspirationAuthor").html("<p>" + " ~ " + data.author + "</p>");
-      
-      var image = $("<img>");
-      var imageDisplay = data.image_url;
-      image.attr("src", imageDisplay);
-      console.log(imageDisplay);
-      $("#inspirationImage").append(image);
 
     });
   });
+
+  //progress spirit bar move function
+
+  function move() {
+    var elem = document.getElementById("myBar");
+    var width = 3;
+    var id = setInterval(frame, 20);
+
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++;
+        elem.style.width = width + '%';
+        elem.innerHTML = width * 1 + '%';
+      }
+    }
+  }
 </script>
 
 </html>

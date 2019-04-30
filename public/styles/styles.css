@@ -1,15 +1,31 @@
-.list-group-item {
-  line-height: 2.5;
+body{
+  font-family: 'Poppins', sans-serif;
 }
 
-
-
-.jumbotron {
-  background:lightcyan;
-  margin-top: 30px;
-  color: black;
-  text-align: center;
+/* Mind Card & Quotes Styling */
+.card-header {
+  font-weight: 800;
+  font-size: 18pt;
 }
+
+#inspirationText {
+font-size: 12pt;
+}
+
+#inspirationAuthor {
+  font-size: 11pt;
+  font-style: italic;
+  }
+
+img {
+  display: block;
+  height: auto;
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
 
 .default-blog-button {
   margin-top: 50px !important;
