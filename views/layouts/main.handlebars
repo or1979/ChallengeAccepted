@@ -38,10 +38,13 @@
       <h1>Accept the Challenge?</h1>
       <hr>
       <p> We challenge you to commit to 30 days in becoming a more well-rounded & wholesome person.<br>
-        Train your mind, body and soul by accepting our daily challenges including; a physical exercise, dose of inspiration, and a journal reflection.
-        Our application will track and record your progress with information you provide (BMI, RBPM, Mood, Gratefulness & Challenge)
+        Train your mind, body and soul by accepting our daily challenges including; a physical exercise, dose of
+        inspiration, and a journal reflection.
+        Our application will track and record your progress with information you provide (BMI, RBPM, Mood, Gratefulness
+        & Challenge)
         <br> <br>
-        Only upon completion of the 30 days your inputted results will be presented back to you with a graph and report on your progress.</p> <br>
+        Only upon completion of the 30 days your inputted results will be presented back to you with a graph and report
+        on your progress.</p> <br>
       <a id="loadChallenge" class="btn btn-danger btn-lg" onclick="move()">Challenge Accepted!</a>
     </div>
   </div>
@@ -185,15 +188,23 @@
   function move(checkin_counter) {
     var elem = document.getElementById("myBar");
     var width = 0;
-    var id = setInterval(frame, 250);
-    var increment_val = 100/30;
+    var id = setInterval(frame, 50);
+    var increment_val = 100 / 30;
     var progress = increment_val * checkin_counter;
+
+    if (width == 0) {
+      elem.style.width = width + '%';
+      elem.innerHTML = (width * 1).toFixed(0) + '%';
+    }
 
     function frame() {
       if (width >= progress) {
         clearInterval(id);
       } else {
         width = width + increment_val;
+        if (width > 100) {
+          width = 100;
+        }
         elem.style.width = width + '%';
         elem.innerHTML = (width * 1).toFixed(0) + '%';
       }
