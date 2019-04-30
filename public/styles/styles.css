@@ -8,6 +8,12 @@ h1{
   font-weight: 900;
   font-style: italic;
   font-stretch: expanded;
+  color: red;
+}
+
+h2{
+  font-size: 28pt;
+  font-family: 'Poppins', sans-serif;
 }
 
 .jumbotron{
