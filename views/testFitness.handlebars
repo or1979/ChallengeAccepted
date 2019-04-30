@@ -1,11 +1,73 @@
-<div class="container">
-  <div class="row">
-    <div class="col-8 offset-2">
-      <div class="card mt-4">
-        <div class="card-body">
-          <h5 class="card-title">This is a test page </h5>
-        </div>
-      </div>
+
+<body>
+<h2>Fitness Challenge!<br>
+<div id="timer">
+    <div id="display">00:00</div></h1> 
+    <div>
+        <button id="startButton" class="btn btn-success">Start</button>
+        <button id="stopButton" class="btn btn-danger">Stop</button>
+        <button id="resetButton" class="btn btn-primary">Reset</button>
+        <button id="lapButton" class="btn btn-warning">Lap</button>
     </div>
-  </div>
-</div>
+<h2> <br>
+    <div class="container">
+      <iframe width="auto" height="315" src="https://www.youtube.com/embed/videoseries?list=PLQSMS0J6JbrKdSOSbyJXaQ_zN_HSSp7zZ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div> <br>
+    <div id="laps"></div>
+</body>
+
+<script>
+  window.onload = function() {
+  $("#startButton").on("click", start);
+  $("#stopButton").on("click", stop);
+  $("#resetButton").on("click", reset);
+  $("#lapButton").on("click", lapping);
+};
+
+var intervalId;
+var clockRunning = false;
+var time = 0;
+var lap = 1;
+
+function reset() {
+  lap = 1;
+  time = 0;
+  $("#display").text("00:00");
+  $("#laps").text("");
+}
+function start() {
+  if (!clockRunning) {
+    intervalId = setInterval(count, 1000);
+    clockRunning = true;
+  }
+}
+function stop() {
+  clearInterval(intervalId);
+  clockRunning = false;
+}
+function lapping() {
+  var converted = timeConverter(time);
+  $("#laps").append("<p> ~~ Lap #" + lap + " : " + converted + " ~~ </p>");
+  lap++;
+  console.log(lap + " : " + converted);
+}
+function count() {
+  time++;
+  var converted = timeConverter(time);
+  $("#display").text(converted);
+}
+function timeConverter(t) {
+  var minutes = Math.floor(t / 60);
+  var seconds = t - (minutes * 60);
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+  if (minutes === 0) {
+    minutes = "00";
+  }
+  else if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  return minutes + ":" + seconds;
+}
+</script>

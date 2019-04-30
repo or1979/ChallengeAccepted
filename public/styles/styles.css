@@ -1,5 +1,32 @@
 body{
   font-family: 'Poppins', sans-serif;
+  background: #272727;
+}
+
+h1{
+  font-size: 32pt;
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: expanded;
+  color: red;
+}
+
+h2{
+  font-size: 28pt;
+  font-family: 'Poppins', sans-serif;
+}
+
+.jumbotron{
+  background-size: cover;
+  background-image: url("/images/tobias-van-schneider-88137-unsplash.jpg");
+  text-align: center;
+  color: whitesmoke;
+  line-height: 1.5;
+  font-size: 14pt;
+}
+
+.card{
+  display: block;
 }
 
 /* Mind Card & Quotes Styling */
@@ -17,6 +44,11 @@ font-size: 12pt;
   font-style: italic;
   }
 
+/* spirit bar */
+#myBar {
+  font-size: 12pt;
+}
+
 img {
   display: block;
   height: auto;
@@ -26,6 +58,7 @@ img {
   padding: 5px;
   margin-left: auto;
   margin-right: auto;
+}
 
 .default-blog-button {
   margin-top: 50px !important;
@@ -42,4 +75,3 @@ img {
   width: 80%;
   color: black; 
 }
-
