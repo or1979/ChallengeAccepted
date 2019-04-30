@@ -137,5 +137,30 @@ module.exports = function (app) {
     });
   });
 
+  // Update the metrics.
+  app.put("/api/update_metrics", function (req, res) {
+    console.log("/api/update_metrics");
+
+    let putObj = {
+      rbpm: req.body.rbpm,
+      bmi: req.body.bmi,
+      blog: req.body.blog,
+      mood: req.body.mood,
+      updatedAt: Date()
+    };
+    db.Metric.update(putObj,
+      {
+        where: {
+          day_id: req.body.day_id
+        }
+      })
+      .then(function (result) {
+        console.log(result);
+        res.status(200).end();
+      });
+
+  });
+
+
 };
 
