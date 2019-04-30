@@ -1,0 +1,260 @@
+<div class="container">
+
+    <p>Day {{data.day_id}} Check In</p>
+
+    <br>
+
+         <!--RBPM -->
+    <div class="restingbeats">
+        <input type="number" class="userData" id="RBPM" name="#" placeholder="What's your RBPM?">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rbpm">
+            RBPM
+        </button>
+    </div>
+
+        <br>
+        <br>
+
+        <!-- BMI -->
+    <div class="bodymass">
+        <input type="number" class="userData" id="BMI" name="#" placeholder="What's your BMI?">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bmi">
+        BMI
+        </button>
+    </div>
+
+    <br>
+
+    <!-- The Zone -->
+    <div class="zoneform" align="center">
+        <h2>What Zone Are You In?</h2>
+        <div class="form-check" id="theZone">
+            <div class="radio">
+            <label><input type="radio" name="optradio" value="0"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#bluez" >Blue Zone</button></label>
+            </div>
+            <div class="radio">
+            <label><input type="radio" name="optradio" value="1"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#greenz">Green Zone</button></label>
+            </div>
+            <div class="radio">
+            <label><input type="radio" name="optradio" value="2"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#yellowz">Yellow Zone</button></label>
+            </div>
+            <div class="radio">
+            <label><input type="radio" name="optradio" value="3"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#redz">Red Zone</button></label>
+            </div>
+            
+        </div>
+    </div>
+
+    <br>
+
+    <!--Blog-->
+    <div class="blogger">
+        <form id="fitBlog">
+          <div class="form-group">
+
+            <br />
+            <label for="body">Blog about it!</label>
+            <textarea class="form-control" rows="10" id="body"></textarea>
+            <div class="form-group">
+              
+            </div>
+            <br />
+            <button type="submit" class="btn btn-outline-success submit btn-lg btn-block" id="checkinSubmitButton">Submit</button>
+          </div>
+        </form>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- rbpm -->
+    <div class="modal fade" id="rbpm" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">What's Your resting beats per minute?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img src="data:image/png;base64,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"
+            >
+            A normal resting heart rate for adults ranges from 60 to 100 beats per minute. Generally, a lower heart rate at rest implies more efficient heart function and better cardiovascular fitness. For example, a well-trained athlete might have a normal resting heart rate closer to 40 beats per minute.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+
+   <!-- BMI Modal -->
+    <div class="modal fade" id="bmi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Body Mass Index</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTba-zyRruNZb29H4whzPRatpD7lWlhtrxiPVv-BXa6kcnT9ihM">
+            <label for="bmi">BMI is an attempt to quantify the amount of tissue mass (muscle, fat, and bone) in an individual</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+<!--Blue Modal-->
+
+    <div class="modal fade" id="bluez" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Blue Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Tired, sad, low energy</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+<!--Green Modal-->
+
+    <div class="modal fade" id="greenz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Green Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Calm, Serene, Good level of energy</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Yellow Modal-->
+
+    <div class="modal fade" id="yellowz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Yellow Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Excited, high energy, alert</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Red Modal-->
+
+    <div class="modal fade" id="redz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Red Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Very agitated, mood swings, bad energy</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+
+
+  // Getting jQuery references to the post user rbpm, bmi, blog, mood
+
+var rbpmInput = $("#RBPM");
+var bmiInput = $("#BMI");
+var blogInput = $("#body");
+var moodInput = $("#theZone");
+
+    $("#checkinSubmitButton").on("click", function (event) {
+
+      // Need this to stop page reloading.
+      event.preventDefault();
+      console.log("checkinSubmitButton button clicked.");
+
+
+      // Bogus data.
+      let putObj = {
+        day_id: {{ data.day_id }},
+        rbpm: parseInt($("#RBPM").val()),
+        bmi:parseFloat($("#BMI").val()),
+        blog: $("#body").val(),
+        mood: $("input[name='optradio']:checked").val() 
+      };
+
+      console.log(putObj);
+      
+
+      // Send the PUT request.
+      $.ajax("/api/update_metrics", {
+        type: "PUT",
+        data: putObj
+      }).then(
+        function () {
+          // Load the home page.
+          console.log("calling /");
+          window.location = "/";
+        }
+      );
+
+    });
+
+  });
+
+</script>

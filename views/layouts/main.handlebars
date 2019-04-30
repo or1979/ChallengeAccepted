@@ -23,8 +23,9 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="/styles/styles.css">
 
-  <!-- JQuery -->
+  <!-- JQuery & Moment JS -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
@@ -32,24 +33,26 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="/js/index.js"></script>
+  {{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <!-- Charts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 </head>
 
 <body>
-  <div class="container text-center bg-dark">
-    <div class="jumbotron bg-dark text-white">
-      <h1>Will You Accept This Challenge?</h1>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Challenge Accepted!</h1>
       <hr>
-      <p> Craving a sense of accomplishment? We have a challenge for you to become a more well-rounded wholesome person.
-        Commit to 30 days of training your mind, body and soul. Each day you will be provided a daily challenge
-        including; a physical exercise, dose of inspiration, and a journal reflection
-        to track and record your progress. The information you will be asked to reflect upon will be your BMI, RBPM,
-        Mood, Level of Challenge in a journal entry.
-        Upon completion of the 30 days you will be presented with a graph and report on your progress.</p>
-      {{!-- js for button to load the rest of the page --}}
-      <a id="loadChallenge" class="btn btn-danger btn-lg">Challenge Accepted!</a>
+      <p> A self-improvement, motivational and social app intended to keep you on track to reach your goals.<br>
+        Train your mind, body and spirit by accepting our daily challenges including; a physical exercise, dose of
+        inspiration, and a journal reflection. Track and record your progress by providing the following information: RBPM, BMI, Zone & Blog.
+        <br> <br>
+        Only AFTER you complete your 30 days you can see your results and progress. <br> Will you accept?</p> <br>
+      <a id="loadChallenge" class="btn btn-danger btn-lg" onclick="move()">Challenge Accepted!</a>
+      <br><br><a type="button" class="btn btn-link" href="/">Home</a>
     </div>
   </div>
   <div class="row" id="challengeZone">
@@ -57,7 +60,6 @@
       <div class="card">
         <h5 class="card-header text-center">Mind</h5>
         <div class="card-body">
-          <h5 class="card-title">Inspirational <br> Quote & Picture</h5>
           <div id="inspirationText" class="card-text"></div>
           <div id="inspirationAuthor" class="card-text"></div>
           <img src="https://source.unsplash.com/random?nature" class="card-img-top"
@@ -77,10 +79,10 @@
       <div class="card">
         <h5 class="card-header text-center">Spirit</h5>
         <div class="card-body">
-          <h5 class="card-title">Your Avatar Progress</h5>
-          <div class="w3-light-grey">
-            <div id="myBar" class="w3-container w3-green w3-center" style="width:0%">0%</div>
-          </div>
+          <div id="myProgress" class="w3-light-grey">
+            <div id="myBar" class="w3-container w3-purple"></div>
+          </div> <br>
+          <p style="italic">Your progress to completion...</p>
         </div>
       </div>
     </div>
@@ -165,6 +167,7 @@
         // TODO : UPDATE THE SPIRIT TRACKER HERE
         console.log("Update the spirit tracker");
         console.log(checkin_counter);
+        move(checkin_counter);
       }
       else {
         $("#cardBody").hide();
@@ -189,19 +192,28 @@
   });
 
   //progress spirit bar move function
-
-  function move() {
+  function move(checkin_counter) {
     var elem = document.getElementById("myBar");
-    var width = 3;
-    var id = setInterval(frame, 20);
+    var width = 0;
+    var id = setInterval(frame, 50);
+    var increment_val = 100 / 30;
+    var progress = increment_val * checkin_counter;
+
+    if (width == 0) {
+      elem.style.width = width + '%';
+      elem.innerHTML = (width * 1).toFixed(0) + '%';
+    }
 
     function frame() {
-      if (width >= 100) {
+      if (width >= progress) {
         clearInterval(id);
       } else {
-        width++;
+        width = width + increment_val;
+        if (width > 100) {
+          width = 100;
+        }
         elem.style.width = width + '%';
-        elem.innerHTML = width * 1 + '%';
+        elem.innerHTML = (width * 1).toFixed(0) + '%';
       }
     }
   }
