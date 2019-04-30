@@ -68,10 +68,10 @@
       <div class="card">
         <h5 class="card-header text-center">Spirit</h5>
         <div class="card-body">
-          <h5 class="card-title">Your Avatar Progress</h5>
-          <div class="w3-light-grey">
-            <div id="myBar" class="w3-container w3-green w3-center" style="width:0%">0%</div>
-          </div>
+          <div id="myProgress" class="w3-light-grey">
+            <div id="myBar" class="w3-container w3-purple"></div>
+          </div> <br>
+          <p style="italic">Your progress so far...</p>
         </div>
       </div>
     </div>
@@ -156,6 +156,7 @@
         // TODO : UPDATE THE SPIRIT TRACKER HERE
         console.log("Update the spirit tracker");
         console.log(checkin_counter);
+        move(checkin_counter);
       }
       else {
         $("#cardBody").hide();
@@ -180,18 +181,20 @@
   });
 
   //progress spirit bar move function
-  function move() {
+  function move(checkin_counter) {
     var elem = document.getElementById("myBar");
-    var width = 3;
-    var id = setInterval(frame, 20);
+    var width = 0;
+    var id = setInterval(frame, 250);
+    var increment_val = 100/30;
+    var progress = increment_val * checkin_counter;
 
     function frame() {
-      if (width >= 100) {
+      if (width >= progress) {
         clearInterval(id);
       } else {
-        width++;
+        width = width + increment_val;
         elem.style.width = width + '%';
-        elem.innerHTML = width + 3 + '%';
+        elem.innerHTML = (width * 1).toFixed(0) + '%';
       }
     }
   }

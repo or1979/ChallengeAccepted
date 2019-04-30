@@ -6,6 +6,7 @@
         <button id="startButton" class="btn btn-success">Start</button>
         <button id="stopButton" class="btn btn-danger">Stop</button>
         <button id="resetButton" class="btn btn-primary">Reset</button>
+        <button id="stopButton" class="btn btn-warning">Lap</button>
     </div>
 <br> <br>
     <div class="container">
@@ -18,6 +19,7 @@
   $("#startButton").on("click", start);
   $("#stopButton").on("click", stop);
   $("#resetButton").on("click", reset);
+  $("#lapButton").on("click", lap);
 };
 
 var intervalId;

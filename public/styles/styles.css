@@ -38,6 +38,11 @@ font-size: 12pt;
   font-style: italic;
   }
 
+/* spirit bar */
+#myBar {
+  font-size: 12pt;
+}
+
 img {
   display: block;
   height: auto;
