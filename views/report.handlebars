@@ -28,16 +28,16 @@
     <h2>What Zone Are You In?</h2>
     <div class="form-check" id="theZone">
         <div class="radio">
-        <label><input type="radio" name="optradio"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#bluez">Blue Zone</button></label>
+        <label><input type="radio" name="optradio" value="0"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#bluez" >Blue Zone</button></label>
         </div>
         <div class="radio">
-        <label><input type="radio" name="optradio"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#greenz">Green Zone</button></label>
+        <label><input type="radio" name="optradio" value="1"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#greenz">Green Zone</button></label>
         </div>
         <div class="radio">
-        <label><input type="radio" name="optradio"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#yellowz">Yellow Zone</button></label>
+        <label><input type="radio" name="optradio" value="2"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#yellowz">Yellow Zone</button></label>
         </div>
         <div class="radio">
-        <label><input type="radio" name="optradio"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#redz">Red Zone</button></label>
+        <label><input type="radio" name="optradio" value="3"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#redz">Red Zone</button></label>
         </div>
           
     </div>
@@ -235,7 +235,7 @@ var moodInput = $("#theZone");
         rbpm: parseInt($("#RBPM").val()),
         bmi:parseFloat($("#BMI").val()),
         blog: $("#body").val(),
-        mood: parseInt($("#theZone").val()) 
+        mood: $("input[name='optradio']:checked").val() 
       };
 
       console.log(putObj);
