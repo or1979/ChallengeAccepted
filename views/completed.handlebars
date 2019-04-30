@@ -1,7 +1,8 @@
 <div class="container">
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal title" aria-hidden="true">
+    <!-- Blog Entry Modal -->
+    <div class="modal fade" id="BlogModal" tabindex="-1" role="dialog" aria-labelledby="BlogModal title"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -20,9 +21,52 @@
         </div>
     </div>
 
+    <!-- RBPM Modal -->
+    <div class="modal fade" id="RBPMModal" tabindex="-1" role="dialog" aria-labelledby="RBPMModal title"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-card-title">Resting Beats Per Minute</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="blog-text" class="modal-body">
+                    <canvas id="RBPMChartLarge" width="400" height="400"></canvas>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BMI Modal -->
+    <div class="modal fade" id="BMIModal" tabindex="-1" role="dialog" aria-labelledby="BMIModal title"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-card-title">Body Mass Index</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="blog-text" class="modal-body">
+                    <canvas id="BMIChartLarge" width="400" height="400"></canvas>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="chartRow" class="row">
         <div class="col-6">
-            <div class="card mt-4">
+            <div id="RBPMChartCard" class="card mt-4" data-toggle="modal" data-target="#RBPMModal">
                 <div class="card-body">
                     <h5 class="card-title">Resting Beats Per Minute</h5>
                     <canvas id="RBPMChart" width="400" height="400"></canvas>
@@ -31,7 +75,7 @@
         </div>
 
         <div class="col-6">
-            <div class="card mt-4">
+            <div class="card mt-4" data-toggle="modal" data-target="#BMIModal">
                 <div class="card-body">
                     <h5 class="card-title">Body Mass Index</h5>
                     <canvas id="BMIChart" width="400" height="400"></canvas>
@@ -57,7 +101,8 @@
 
         var metricsData = null;
 
-        function plotRBPM(day_id, rbpm) {
+        // Plot the RBPM chart.
+        function plotRBPM(ctx, day_id, rbpm) {
 
             // Generate upper and lower healthy RBPM limit.
             let upperLimit = [];
@@ -80,10 +125,6 @@
                     y_data.push(null);
                 }
             }
-
-
-            // Plot the chart.
-            var ctx = document.getElementById('RBPMChart');
 
             new Chart(ctx, {
                 type: 'bar',
@@ -127,8 +168,8 @@
 
         }
 
-
-        function plotBMI(day_id, bmi) {
+        // Plot the BMI chart.
+        function plotBMI(ctx, day_id, bmi) {
 
             // Generate upper and lower healthy BMI limit.
             let healthyUpperLimit = [];
@@ -151,10 +192,6 @@
                     y_data.push(null);
                 }
             }
-
-
-            // Plot the chart.
-            var ctx = document.getElementById('BMIChart');
 
             new Chart(ctx, {
                 type: 'bar',
@@ -242,9 +279,7 @@
                 }
                 newBtn.text("Day " + i);
                 newBtn.attr("data-toggle", "modal");
-                newBtn.attr("data-target", "#myModal");
-
-                //data-toggle="modal" data-target="#rbpm"
+                newBtn.attr("data-target", "#BlogModal");
 
                 $("#Blog").append(newBtn);
             }
@@ -295,12 +330,24 @@
 
                 console.log(data);
                 metricsData = data; // Assign to a global to get the blog button callback to see it.
-                plotRBPM(data.day_id, data.rbpm);
-                plotBMI(data.day_id, data.bmi);
+
+                // Plot small charts.
+                var bmi_small_chart = document.getElementById('BMIChart');
+                plotBMI(bmi_small_chart, data.day_id, data.bmi);
+                var rbpm_small_chart = document.getElementById('RBPMChart');
+                plotRBPM(rbpm_small_chart, data.day_id, data.rbpm);
+
+                // Plot large charts.
+                var rbpm_large_chart = document.getElementById('RBPMChartLarge');
+                plotRBPM(rbpm_large_chart, data.day_id, data.rbpm);
+                var bmi_large_chart = document.getElementById('BMIChartLarge');
+                plotBMI(bmi_large_chart, data.day_id, data.bmi);
+
+                // Display the blog buttons.
                 displayBlog(data.day_id, data.mood, data.blog);
 
             });
-        }
+        };
 
         // Plot data.
         plot();
