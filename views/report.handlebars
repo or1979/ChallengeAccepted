@@ -24,27 +24,25 @@
 
 <br>
     <!-- The Zone -->
-<div class="zoneform" align="center"></div>
+<div class="zoneform" align="center">
     <h2>What Zone Are You In?</h2>
     <div class="form-check" id="theZone">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="option1" name="customRadio">
-            <label class="custom-control-label" for="#">Blue Zone : Tired, sad, low energy</label>
+        <div class="radio">
+        <label><input type="radio" name="optradio"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#bluez">Blue Zone</button></label>
+        </div>
+        <div class="radio">
+        <label><input type="radio" name="optradio"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#greenz">Green Zone</button></label>
+        </div>
+        <div class="radio">
+        <label><input type="radio" name="optradio"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#yellowz">Yellow Zone</button></label>
+        </div>
+        <div class="radio">
+        <label><input type="radio" name="optradio"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#redz">Red Zone</button></label>
+        </div>
           
-
-            <input type="radio" class="custom-control-input" id="option2" name="#">
-            <label class="custom-control-label" for="#">Green Zone : Calm, Serene, Good level of energy</label>
-          
-          
-            <input type="radio" class="custom-control-input" id="option3" name="#">
-            <label class="custom-control-label" for="#">Yellow Zone : Excited, high energy, high alert</label>
-          
-          
-            <input type="radio" class="custom-control-input" id="option4" name="#">
-            <label class="custom-control-label" for="#">Red Zone : Very agitated, mood swings, bad energy</label>
-          </div>
     </div>
 </div>
+
 
 <!--Blog-->
 <br>
@@ -113,9 +111,104 @@
     </div>
     </div>
 
+<!--Blue Modal-->
+
+    <div class="modal fade" id="bluez" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Blue Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Tired, sad, low energy</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+<!--Green Modal-->
+
+    <div class="modal fade" id="greenz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Green Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Calm, Serene, Good level of energy</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Yellow Modal-->
+
+    <div class="modal fade" id="yellowz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Yellow Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Excited, high energy, alert</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Red Modal-->
+
+    <div class="modal fade" id="redz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bmiLabel">Red Zone</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{!-- <img src="#"> --}}
+            <label for="bluez">Very agitated, mood swings, bad energy</label>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
       <br>
-  </div>
-</div>
+  
 
 <script>
 
