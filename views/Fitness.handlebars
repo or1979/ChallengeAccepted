@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2 class="card-title">LET'S WORK IT OUT!!!</h2>
+        </div>
+        {{!-- <div class=button>
+          <input type="image" id="btn1" onclick="{action}; return false" src="./images/weights.jpg" />
+          </br> </br>
+          <input type="image" id="btn1" onclick="{action}; return false" src="./images/medicine_ball.jpg" />
+          </br></br>
+          <input type="image" id="btn2" onclick="{action}; return false" src="./images/lungr.jpg" />
+          </br></br>
+          <input type="image" id="btn3" onclick="{action}; return false" src="./images/plank.jpg" />
+          </br></br>
+          <input type="image" id="btn4" onclick="{action}; return false" src="./images/running.jpg" />
+          </br>
+        </div> --}}
+
+      </div> 
+    </div> 
+  </div> 
+</div> 
+
+        <script type="text/javascript">
+const imlocation = "./images";
+
+function ImageArray (n) {
+   this.length = n;
+   for (var i =1; i <= n; i++) {
+     this[i] = ' '
+   }
+}
+function linkArray (n) {
+   this.length = n;
+   for (var i =1; i <= n; i++) {
+     this[i] = ' '
+   }
+}
+image = new ImageArray(7);
+image[0] = 'sunday.jpg';
+image[1] = 'monday.jpg';
+image[2] = 'tuesday.jpg';
+image[3] = 'wednesday.jpg';
+image[4] = 'thursday.jpg';
+image[5] = 'friday.jpg';
+image[6] = 'saturday.jpg';
+link = new linkArray(7);
+link[0] = 'https://youtu.be/kaFs0XcgUfo';
+link[1] = 'https://youtu.be/3VpkyIcnT64';
+link[2] = 'https://youtu.be/WRnq49TAv-w';
+link[3] = 'https://youtu.be/9pBEn_zQhoc';
+link[4] = 'https://youtu.be/t3elxPJ1HU4';
+link[5] = 'https://youtu.be/wTfWbsQql1o';
+link[6] = 'https://youtu.be/AAPpXm-q7lc';
+var currentdate = new Date();
+var imagenumber = currentdate.getDay();
+document.write('<a href="' + link[imagenumber] + '"><img src="' + imlocation + image[imagenumber] + '" border="0"></a>');
+//--></script>
