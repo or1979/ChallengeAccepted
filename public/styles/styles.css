@@ -1,5 +1,26 @@
 body{
   font-family: 'Poppins', sans-serif;
+  background: #272727;
+}
+
+h1{
+  font-size: 32pt;
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: expanded;
+}
+
+.jumbotron{
+  background-size: cover;
+  background-image: url("/images/tobias-van-schneider-88137-unsplash.jpg");
+  text-align: center;
+  color: whitesmoke;
+  line-height: 1.5;
+  font-size: 14pt;
+}
+
+.card{
+  display: block;
 }
 
 /* Mind Card & Quotes Styling */
