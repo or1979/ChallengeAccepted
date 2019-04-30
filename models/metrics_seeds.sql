@@ -1,3 +1,4 @@
+DELETE FROM metrics;
 INSERT INTO metrics (day_id,createdAt,updatedAt) VALUES (1,NOW(),NOW());
 INSERT INTO metrics (day_id,createdAt,updatedAt) VALUES (2,NOW(),NOW());
 INSERT INTO metrics (day_id,createdAt,updatedAt) VALUES (3,NOW(),NOW());
