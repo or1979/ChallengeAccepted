@@ -1,9 +1,6 @@
 <div class="container">
-  <div class="col-md-5 offset-md-3">
-
-    <p>Day {{data.day_id}} Check In</p>
-
-    <br>
+     <div class="col-md-5 offset-md-3">
+         <br>
 
          <!--RBPM -->
         <input type="number" class="userData" id="RBPM" name="#" placeholder="What's your RBPM?">
@@ -12,7 +9,6 @@
         </button>
         <br>
         <br>
-
         <!-- BMI -->
 <div >
     <input type="number" class="userData" id="BMI" name="#" placeholder="What's your BMI?">
@@ -21,17 +17,17 @@
     </button>
 </div>
 
-
 <br>
-    <!-- The Zone -->
-<div class="zoneform" align="center"></div>
+
+<!-- The Zone -->
+<div class="zoneform" align="center">
     <h2>What Zone Are You In?</h2>
-    <div class="form-check" id="theZone">
+    <div class="form-check">
           <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="option1" name="customRadio">
+            <input type="radio" class="custom-control-input" id="option1" name="#">
             <label class="custom-control-label" for="#">Blue Zone : Tired, sad, low energy</label>
           
-
+          
             <input type="radio" class="custom-control-input" id="option2" name="#">
             <label class="custom-control-label" for="#">Green Zone : Calm, Serene, Good level of energy</label>
           
@@ -46,22 +42,6 @@
     </div>
 </div>
 
-<!--Blog-->
-<br>
-        <form id="fitBlog">
-          <div class="form-group">
-
-            <br />
-            <label for="body">Blog about it!</label>
-            <textarea class="form-control" rows="10" id="body"></textarea>
-            <div class="form-group">
-              
-            </div>
-            <br />
-            <button type="submit" class="btn btn-success submit btn-lg" id="checkinSubmitButton">Submit</button>
-          </div>
-        </form>
-      </div>
 
 
     <!-- Modals -->
@@ -89,8 +69,7 @@
     </div>
 
 
-
-   <!-- BMI Modal -->
+    <!-- BMI Modal -->
     <div class="modal fade" id="bmi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -102,7 +81,8 @@
         </div>
         <div class="modal-body">
             <img src="https://medical.azureedge.net/images/0aa8713b-421f-445f-996a-0aed1695b5a2.jpg">
-            <label for="bmi">BMI is an attempt to quantify the amount of tissue mass (muscle, fat, and bone) in an individual</label>
+            BMI is an attempt to quantify the amount of tissue mass (muscle, fat, and bone) in an individual
+            <label for="bmi">Body Mass Index</label>
             
 
         </div>
@@ -113,55 +93,19 @@
     </div>
     </div>
 
-      <br>
-  </div>
+        <br>
+        <form id="cms">
+          <div class="form-group">
+
+            <br />
+            <label for="body">Blog about it!</label>
+            <textarea class="form-control" rows="10" id="body"></textarea>
+            <div class="form-group">
+              
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success submit btn-lg">Submit</button>
+          </div>
+        </form>
+      </div>
 </div>
-
-<script>
-
-  $(document).ready(function () {
-
-
-  // Getting jQuery references to the post user rbpm, bmi, blog, mood
-
-var rbpmInput = $("#RBPM");
-var bmiInput = $("#BMI");
-var blogInput = $("#body");
-var moodInput = $("#theZone");
-
-    $("#checkinSubmitButton").on("click", function (event) {
-
-      // Need this to stop page reloading.
-      event.preventDefault();
-      console.log("checkinSubmitButton button clicked.");
-
-
-      // Bogus data.
-      let putObj = {
-        day_id: {{ data.day_id }},
-        rbpm: parseInt($("#RBPM").val()),
-        bmi:parseFloat($("#BMI").val()),
-        blog: $("#body").val(),
-        mood: parseInt($("#theZone").val()) 
-      };
-
-      console.log(putObj);
-      
-
-      // Send the PUT request.
-      $.ajax("/api/update_metrics", {
-        type: "PUT",
-        data: putObj
-      }).then(
-        function () {
-          // Load the home page.
-          console.log("calling /");
-          window.location = "/";
-        }
-      );
-
-    });
-
-  });
-
-</script>
