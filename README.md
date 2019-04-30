@@ -19,5 +19,5 @@ Use the commands in the seeds.sql to populate the inspirations table.
 ### Seed the metrics table.
 Use the commands in the metrics_seeds.sql file to populate the metrics table.
 
-### Side Deck
+### Slide Deck
 https://docs.google.com/presentation/d/1__qtbrgr5s04XlyLEhjw5T_F9ZIJHCQb2ucLBVqe8P8
