@@ -86,7 +86,7 @@ module.exports = function (app) {
 
   app.get("/fitness", function (req, res) {
     console.log("Orran's Link to fitness");
-    res.render("testFitness", {});
+    res.render("Fitness", {});
     console.log("testing123");
   });
 
