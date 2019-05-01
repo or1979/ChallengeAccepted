@@ -33,17 +33,18 @@
 </head>
 
 <body>
-  <div class="jumbotron">
+  <div class="jumbotron jumbotron-billboard">
+    <div class="img"></div>
     <div class="container">
-      <h1>Challenge Accepted!</h1>
-      <hr>
+      <img src="/images/logo_transparent.png" class="logo" alt="challenge accepted">
       <p> A self-improvement, motivational and social app intended to keep you on track to reach your goals.<br>
         Train your mind, body and spirit by accepting our daily challenges including; a physical exercise, dose of
         inspiration, and a journal reflection. Track and record your progress by providing the following information: RBPM, BMI, Zone & Blog.
-        <br> <br>
-        Only AFTER you complete your 30 days you can see your results and progress. <br> Will you accept?</p> <br>
-      <a id="loadChallenge" class="btn btn-danger btn-lg" onclick="move()">Challenge Accepted!</a>
-      <br><br><a type="button" class="btn btn-link" href="/">Home</a>
+        <hr>
+        Only AFTER you complete the 30 days you'll be able to see your results and progress. <br> Will you accept?</p> <br>
+      <a id="loadChallenge" class="btn btn-danger btn-lg" value="PLAY" onclick="move();play()">Challenge Accepted!</a>
+      <audio id="audio" src="/images/ChallengeAccepted.mp3"></audio>
+      <br><br><a type="button" class="btn btn-ligh btn-lg" href="/"><i class="fas fa-igloo"></i></a>
     </div>
   </div>
   <div class="row" id="challengeZone">
@@ -53,8 +54,7 @@
         <div class="card-body">
           <div id="inspirationText" class="card-text"></div>
           <div id="inspirationAuthor" class="card-text"></div>
-          <img src="https://source.unsplash.com/random?nature" class="card-img-top"
-            alt="inspirational image to change your life">
+          <img src="https://source.unsplash.com/random?nature" class="card-img-top" alt="inspirational image to change your life">
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
           <div id="myProgress" class="w3-light-grey">
             <div id="myBar" class="w3-container w3-purple"></div>
           </div> <br>
-          <p style="italic">Your progress to completion...</p>
+          <p>Your progress to completion <i class="fas fa-running"></i></p>
         </div>
       </div>
     </div>
@@ -81,7 +81,10 @@
 </body>
 
 <script>
-
+ function play(){
+       var audio = document.getElementById("audio");
+       audio.play();
+                 }
 
   $(document).ready(function () {
 
@@ -100,7 +103,6 @@
         // Reload the landing page.
         window.location = "/";
       });
-
     });
 
     // Determine whether challenge was accepted and if so, how many days of checkin
