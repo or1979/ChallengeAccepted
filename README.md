@@ -21,3 +21,6 @@ Use the commands in the metrics_seeds.sql file to populate the metrics table.
 
 ### Slide Deck
 https://docs.google.com/presentation/d/1__qtbrgr5s04XlyLEhjw5T_F9ZIJHCQb2ucLBVqe8P8
+
+### Deployment
+https://challenge-accepted-demo.herokuapp.com/
